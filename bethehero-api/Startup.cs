@@ -12,6 +12,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
+using Microsoft.EntityFrameworkCore;
+using bethehero_api.Data;
+
 namespace bethehero_api
 {
     public class Startup
@@ -27,6 +30,8 @@ namespace bethehero_api
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DataContext")));
+            services.AddScoped<DataContext, DataContext>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -43,8 +48,6 @@ namespace bethehero_api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "bethehero_api v1"));
             }
-
-            app.UseHttpsRedirection();
 
             app.UseRouting();
 
