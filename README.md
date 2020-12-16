@@ -32,4 +32,9 @@
 contendo um arquivo json que pode ser carregado no insomnia para teste das respostas da api.
 </p>
 
+<p>
+[Edit 2] Foi adicionado um dashboard simples, (apenas uma tabela de gerenciamento sem autenticação) que pode ser acessado pela rota
+  "/dashboard".
+</p>
+
 
