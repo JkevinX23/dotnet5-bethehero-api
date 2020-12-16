@@ -30,9 +30,16 @@ namespace bethehero_api
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddCors(options =>
+    {
+        options.AddPolicy("CorsPolicy",
+            builder => builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+    });
             services.AddDbContext<DataContext>(options => options.UseSqlite(Configuration.GetConnectionString("DataContext")));
             services.AddScoped<DataContext, DataContext>();
-            services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "bethehero_api", Version = "v1" });
@@ -49,9 +56,9 @@ namespace bethehero_api
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "bethehero_api v1"));
             }
 
-            app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseCors("CorsPolicy");
+            app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {

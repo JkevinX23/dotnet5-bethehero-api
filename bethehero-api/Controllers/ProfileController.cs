@@ -13,15 +13,15 @@ namespace bethehero_api.Controllers
     public class ProfileController : ControllerBase
     {
         [HttpGet]
-        [Route("")]
-        public async Task<ActionResult<List<Incident>>> Profile([FromServices] DataContext context, [FromHeader] int authorization)
+        [Route("{id:int}")]
+        public async Task<ActionResult<List<Incident>>> Profile([FromServices] DataContext context, [FromHeader] int authorization, int id)
         {
-            if(authorization > 0 )
+            if(id > 0 )
             {
                 var incidents = await context.Incident
                 .Include(x => x.Ong)
                 .AsNoTracking()
-                .Where(x => x.OngId == authorization)
+                .Where(x => x.OngId == id)
                 .ToListAsync();
                 return incidents;
             }

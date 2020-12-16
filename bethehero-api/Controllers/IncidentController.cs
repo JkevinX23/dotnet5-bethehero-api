@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using bethehero_api.Data;
 using bethehero_api.Models;
-using System.Linq;
 
 namespace bethehero_api.Controllers
 {
@@ -26,7 +25,6 @@ namespace bethehero_api.Controllers
 
         [HttpPost]
         [Route("")]
-
         public async Task<ActionResult<Incident>> Post(
             [FromServices] DataContext context, [FromBody] Incident model, [FromHeader] int authorization)
         {

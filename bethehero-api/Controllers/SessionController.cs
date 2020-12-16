@@ -12,7 +12,7 @@ namespace bethehero_api.Controllers
     [Route("v1/session")]
     public class SessionController : ControllerBase
     {
-        [HttpPost]
+        [HttpGet]
         [Route("{id:int}")]
         public async Task<ActionResult<Ong>>Session([FromServices] DataContext context, int id)
         {
